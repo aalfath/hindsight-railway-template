@@ -37,7 +37,14 @@ echo "Hindsight LLM provider: $HINDSIGHT_API_LLM_PROVIDER"
 
 # Listen on Railway's PORT, on IPv4 and IPv6 (Railway's private network can be IPv6-only).
 export HINDSIGHT_API_PORT="${PORT:-${HINDSIGHT_API_PORT:-8888}}"
-export HINDSIGHT_API_HOST="${HINDSIGHT_API_HOST:-::}"
+# The upstream image sets HINDSIGHT_API_HOST=0.0.0.0 (IPv4 only), so override it;
+# set HINDSIGHT_API_BIND_HOST to change it.
+export HINDSIGHT_API_HOST="${HINDSIGHT_API_BIND_HOST:-::}"
+
+# The built-in worker claims background tasks under its worker id. The default is
+# the container hostname, which changes on every Railway deploy and strands tasks
+# claimed by the previous container. A stable id lets the new container recover them.
+export HINDSIGHT_API_WORKER_ID="${HINDSIGHT_API_WORKER_ID:-hindsight-api}"
 
 export HINDSIGHT_ENABLE_API=true
 export HINDSIGHT_ENABLE_CP=false
