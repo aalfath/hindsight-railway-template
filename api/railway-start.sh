@@ -35,11 +35,10 @@ if [ "$HINDSIGHT_API_LLM_PROVIDER" != "none" ] && [ -z "${HINDSIGHT_API_LLM_API_
 fi
 echo "Hindsight LLM provider: $HINDSIGHT_API_LLM_PROVIDER"
 
-# Listen on Railway's PORT, on IPv4 and IPv6 (Railway's private network can be IPv6-only).
+# Listen on Railway's PORT. 0.0.0.0 is upstream's default; Railway's private
+# network reaches it over IPv4. (Binding "::" makes uvicorn IPv6-only.)
 export HINDSIGHT_API_PORT="${PORT:-${HINDSIGHT_API_PORT:-8888}}"
-# The upstream image sets HINDSIGHT_API_HOST=0.0.0.0 (IPv4 only), so override it;
-# set HINDSIGHT_API_BIND_HOST to change it.
-export HINDSIGHT_API_HOST="${HINDSIGHT_API_BIND_HOST:-::}"
+export HINDSIGHT_API_HOST="${HINDSIGHT_API_BIND_HOST:-0.0.0.0}"
 
 # The built-in worker claims background tasks under its worker id. The default is
 # the container hostname, which changes on every Railway deploy and strands tasks
