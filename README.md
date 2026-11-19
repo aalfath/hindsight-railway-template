@@ -1,3 +1,5 @@
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template/hindsight-1?utm_medium=integration&utm_source=button&utm_campaign=hindsight)
+
 # Hindsight on Railway
 
 One-click Railway template for [Hindsight](https://github.com/vectorize-io/hindsight), the open-source agent memory server from Vectorize (MIT). Your AI agents get a long-term memory API: **retain**, **recall** and **reflect**, over REST, MCP and the Python/TypeScript SDKs.
@@ -35,6 +37,8 @@ Any other `HINDSIGHT_API_*` setting from the [configuration reference](https://h
 Each service builds from this repository. When a new Hindsight release is tested, the pinned tag and digest are bumped on `main` and listed in [CHANGELOG.md](CHANGELOG.md). Railway then shows an "update available" notice on your project, and you choose when to apply it. Hindsight runs its database migrations on start, so read the changelog for breaking changes before you apply an update.
 
 ## Layout
+
+- `OVERVIEW.md`: the marketplace overview of the template.
 
 - `api/Dockerfile`, `api/railway-start.sh`: the API service (listens on `PORT`, API-key auth on, LLM fallback to `none`).
 - `control-plane/Dockerfile`, `control-plane/railway-start.sh`: the web UI (listens on `PORT`, refuses to start without an access key).
